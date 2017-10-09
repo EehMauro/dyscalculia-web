@@ -154,7 +154,9 @@ class DataEntry extends React.Component {
     if (!steps) {
       return (
         <SinglePage>
-          <CircularProgress />
+          <div style={{ textAlign: 'center', padding: 24 }}>
+            <CircularProgress size={ 100 } />
+          </div>
         </SinglePage>
       );
     }

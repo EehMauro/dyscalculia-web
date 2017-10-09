@@ -22,7 +22,7 @@ const styles = theme => ({
     height: '100%'
   },
   appBar: {
-    padding: '22px 24px 20px',
+    padding: '19px 24px 20px',
     background: '#FFF',
     color: colors.text[800],
     position: 'relative',
