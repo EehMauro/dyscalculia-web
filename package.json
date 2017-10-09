@@ -8,6 +8,7 @@
     "material-ui": "^1.0.0-beta.13",
     "material-ui-icons": "^1.0.0-beta.15",
     "moment": "^2.18.1",
+    "pushstate-server": "^3.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-helmet": "^5.2.0",
@@ -23,6 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "start-prod": "pushstate-server ./ 8080"
   }
 }
