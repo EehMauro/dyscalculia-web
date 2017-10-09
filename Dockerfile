@@ -10,6 +10,6 @@ RUN npm install --production
 
 ADD ./build /app
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD [ "npm", "run", "start-prod" ]
