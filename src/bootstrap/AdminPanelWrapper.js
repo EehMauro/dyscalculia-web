@@ -1,5 +1,4 @@
 import React from 'react';
-import color from 'color';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';

@@ -1,5 +1,4 @@
 import React from 'react';
-import color from 'color';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { SinglePage, RaisedButton } from '../../components';
