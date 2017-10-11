@@ -12,6 +12,10 @@ class Wrapper extends React.Component {
         <Helmet
           title="Test"
           link={[
+            {
+              rel: 'stylesheet',
+              href: 'https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'
+            },
             { 
               rel: 'stylesheet',
               href: 'https://fonts.googleapis.com/css?family=Material+Icons'
@@ -21,11 +25,8 @@ class Wrapper extends React.Component {
             {
               type: 'text/css',
               cssText: `
-                body {
-                  font-family: Open Sans !important;
-                  margin: 0; padding: 0;
-                }
                 html {
+                  font-family: Open Sans !important;
                   background: ${ colors.text[100] };
                   color: ${ colors.text[900] };
                 }

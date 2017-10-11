@@ -2,13 +2,11 @@ import React from 'react';
 import color from 'color';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import { SinglePage } from '../../components';
+import { SinglePage, RaisedButton } from '../../components';
 import { colors } from '../../conventions';
 
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
-import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight';
 
 import { doLogin } from '../../actions/session';
 
@@ -24,16 +22,6 @@ const styles = theme => ({
   },
   input: {
     marginBottom: 20
-  },
-  button: {
-    background: `linear-gradient(45deg, ${ colors.primary['A200'] } 30%, ${ colors.secondary['A200'] } 90%)`,
-    borderRadius: 3,
-    border: 0,
-    color: 'white',
-    height: 48,
-    padding: '0 32px',
-    boxShadow: `0 3px 5px 2px ${ color(colors.primary['A200']).fade(0.7) }`,
-    marginTop: 12
   }
 });
 
@@ -95,17 +83,15 @@ class Login extends React.Component {
             className={ classes.input }
           />
 
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', marginTop: 12 }}>
 
-            <Button raised
-              color="primary"
+            <RaisedButton
               type="submit"
-              className={ classes.button }
+              label="Submit"
+              icon="chevron_right"
+              style={{ minWidth: '160px' }}
               disabled={ this.props.session.loginIsFetching || this.props.session.sessionIsFetching }
-            >
-              Submit
-              <KeyboardArrowRight />
-            </Button>
+            />
 
           </div>
 

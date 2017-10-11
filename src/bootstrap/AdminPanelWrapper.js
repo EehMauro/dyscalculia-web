@@ -59,7 +59,8 @@ const styles = theme => ({
   },
   content: {
     position: 'relative',
-    padding: '86px 24px 24px',
+    padding: 24,
+    paddingTop: 86,
     marginLeft: 300
   }
 });
