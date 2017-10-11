@@ -10,14 +10,15 @@ import { colors } from '../../conventions';
 
 const styles = theme => ({
   badgeText: {
-    padding: 4,
+    padding: '4px 8px',
     backgroundColor: colors.text[200],
     borderRadius: 2
   },
   badgeNumber: {
     padding: '4px 8px',
     backgroundColor: colors.text[200],
-    borderRadius: 16
+    borderRadius: 16,
+    display: 'inline-block'
   }
 });
 
@@ -40,12 +41,11 @@ class FormList extends React.Component {
     return (
       <AdminPanelTablePage
         headers={[
-          { title: '#ID' },
+          { title: 'Creation date' },
           { title: 'Email', align: 'center' },
           { title: 'Age', align: 'center' },
           { title: 'Gender', align: 'center' },
           { title: 'Education level', align: 'center' },
-          { title: 'Creation date', align: 'center' },
           { title: 'Score', align: 'center' },
           { title: 'Completion time', align: 'center' }
         ]}
@@ -57,16 +57,11 @@ class FormList extends React.Component {
           {
             id: form.id,
             fields: [
-              { value: (
-                <div style={{ fontFamily: 'monospace' }}>
-                  { form.id }  
-                </div> 
-              ) },
+              { value: moment(form.ts, 'X').format('DD/MM/YYYY HH:mm') },
               { value: <div className={ classes.badgeText }>{ form.email ? 'Yes' : 'No' }</div> },
               { value: <div className={ classes.badgeNumber }>{ form.age ? form.age : '-' }</div> },
-              { value: form.gender ? form.gender : '' },
-              { value: form.educationLevel ? form.educationLevel : '' },
-              { value: moment(form.ts, 'X').format('DD/MM/YYYY HH:mm') },
+              { value: form.gender ? form.gender : '-' },
+              { value: form.educationLevel ? form.educationLevel : '-' },
               { value: <div className={ classes.badgeNumber }>{ `${ form.correctQuestionsAmount }/${ form.questions.length }` }</div> },
               { value: <div className={ classes.badgeNumber }>{ `${ form.totalCompletionTime.toFixed(2) }s` }</div> }
             ]
