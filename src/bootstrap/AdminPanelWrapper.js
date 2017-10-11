@@ -22,12 +22,10 @@ const styles = theme => ({
     height: '100%'
   },
   appBar: {
-    padding: '19px 24px 20px',
-    background: '#FFF',
-    color: colors.text[800],
-    position: 'relative',
-    borderBottom: `1px solid ${ color(colors.primary['A200']).fade(0.75) }`,
-    boxSizing: 'border-box'
+    padding: '19px 24px 21px',
+    background: colors.primary[500],
+    color: '#FFF',
+    position: 'relative'
   },
   appBarDecoration: {
     position: 'absolute',
