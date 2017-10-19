@@ -22,12 +22,17 @@ const styles = theme => ({
 
 class WelcomeStep extends React.Component {
 
+  handleSubmit (event) {
+    event.preventDefault();
+    this.props.onSubmit();
+  }
+
   render () {
 
     let { classes } = this.props;
     
     return (
-      <form onSubmit={ this.props.onSubmit }>
+      <form onSubmit={ this.handleSubmit.bind(this) }>
 
         <Typography type="title" className={ classes.title }>
           Bienvenida/o y gracias por participar
