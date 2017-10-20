@@ -7,7 +7,9 @@ import { colors } from '../../../conventions';
 
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
+import TextField from 'material-ui/TextField';
 import { FormControl, FormControlLabel } from 'material-ui/Form';
+import Slider from 'rc-slider';
 
 const styles = theme => ({
   container: {
@@ -61,6 +63,23 @@ const styles = theme => ({
     paddingLeft: 24,
     flexWrap: 'wrap'
   },
+  fractionContainer: {
+    flex: 0,
+    display: 'flex',
+    alignItems: 'center',
+    padding: 24,
+    margin: '12px 0',
+    flexWrap: 'wrap'
+  },
+  fractionValue: {
+    flex: 0,
+    minWidth: 32,
+    border: `2px solid ${ colors.text[800] }`
+  },
+  fractionValueDivider: {
+    borderTop: `2px solid ${ colors.text[800] }`,
+    height: 1
+  },
   optionLabel: {
     fontSize: 24,
     position: 'relative',
@@ -74,7 +93,10 @@ class QuestionsStep extends React.Component {
     startTime: 0,
     currentQuestion: 0,
     answer: null,
-    questions: []
+    questions: [],
+
+    fraction1: '',
+    fraction2: ''
   }
 
   componentDidMount () {
@@ -83,6 +105,20 @@ class QuestionsStep extends React.Component {
 
   handleAnswer (event, answer) {
     this.setState({ answer });
+  }
+
+  handleChangeFraction1 (value) {
+    this.setState({
+      fraction1: value,
+      answer: `${ value }/${ this.state.fraction2 }`
+    });
+  }
+
+  handleChangeFraction2 (value) {
+    this.setState({
+      fraction2: value,
+      answer: `${ this.state.fraction1 }/${ value }`
+    });
   }
 
   handleNext (event) {
@@ -116,13 +152,87 @@ class QuestionsStep extends React.Component {
     });
   }
 
-  renderOptions (options) {
+  renderMultipleChoiceOptions (options) {
     return options.map((option, index) => (
       <FormControlLabel
         key={ index } label={ option } value={ option } control={ <Radio /> }
         classes={{ label: this.props.classes.optionLabel }}
       />
     ));
+  }
+
+  renderMultipleChoice (question) {
+    return (
+      <div className={ this.props.classes.answerContainer }>
+
+        { question.image ?
+          <div style={{ flex: 0, marginRight: 24, marginBottom: 12, textAlign: 'center' }}>
+            <img src={ question.image } alt={ question.label } /> 
+          </div>
+        : null }
+
+        <div style={{ flex: 1 }}>
+          <FormControl component="fieldset">
+            <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
+              { this.renderMultipleChoiceOptions(question.options) }
+            </RadioGroup>
+          </FormControl>
+        </div>
+
+      </div>
+    );
+  }
+
+  renderScale (question) {
+    return (
+      <div style={{ flex: 0, padding: '0 24px' }}>
+        <Slider
+          step={ 1 } min={ 0 } max={ 10 }
+          defaultValue={ 5 }
+          marks={{ 0: '0', 2: '', 4: '', 6: '', 8: '', 10: '10' }}
+          onAfterChange={ value => this.handleAnswer(null, value) }
+          trackStyle={{ backgroundColor: colors.primary['A200'] }}
+          handleStyle={{ borderColor: colors.primary['A200'], backgroundColor: '#FFF', boxShadow: 'none' }}
+          railStyle={{ backgroundColor: colors.primary['A200'] }}
+          dotStyle={{ borderColor: colors.primary['A200'], backgroundColor: colors.primary['A200'] }}
+        />
+      </div>
+    );
+  }
+
+  renderFraction (question) {
+    return (
+      <div className={ this.props.classes.fractionContainer }>
+
+        <div style={{ flex: 0, marginRight: 48, textAlign: 'center' }}>
+          <img src={ question.image } alt={ question.label } width={ 200 } /> 
+        </div>
+
+        <div className={ this.props.classes.fractionValue }>
+          <TextField fullWidth
+            type="number"
+            value={ this.state.fraction1 }
+            onChange={ e => this.handleChangeFraction1(e.target.value) }
+          />
+          <div className={ this.props.classes.fractionValueDivider } />
+          <TextField fullWidth
+            type="number"
+            value={ this.state.fraction2 }
+            onChange={ e => this.handleChangeFraction2(e.target.value) }
+          />
+        </div>
+
+      </div>
+    );
+  }
+
+  renderQuestion (question) {
+    switch (question.type) {
+      case 'multiple-choice-question': return this.renderMultipleChoice(question);
+      case 'scale-question': return this.renderScale(question);
+      case 'fraction-question': return this.renderFraction(question);
+      default: return null;
+    }
   }
 
   render () {
@@ -140,23 +250,7 @@ class QuestionsStep extends React.Component {
           { question.label }
         </Typography>
 
-        <div className={ classes.answerContainer }>
-
-          { question.image ?
-            <div style={{ flex: 0, marginRight: 24, marginBottom: 12, textAlign: 'center' }}>
-              <img src={ question.image } alt={ question.label } /> 
-            </div>
-          : null }
-
-          <div style={{ flex: 1 }}>
-            <FormControl component="fieldset">
-              <RadioGroup name="question" value={ answer } onChange={ this.handleAnswer.bind(this) }>
-                { this.renderOptions(question.options) }
-              </RadioGroup>
-            </FormControl>
-          </div>
-
-        </div>
+        { this.renderQuestion(question) }
 
         <div className={ classes.footer }>
           <div className={ classes.progress }>
