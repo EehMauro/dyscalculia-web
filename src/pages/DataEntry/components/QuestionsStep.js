@@ -1,4 +1,5 @@
 import React from 'react';
+import color from 'color';
 import moment from 'moment';
 import { withStyles } from 'material-ui/styles';
 import { RaisedButton } from '../../../components';
@@ -30,18 +31,28 @@ const styles = theme => ({
     alignItems: 'center'
   },
   button: {
-    flex: 0
+    flex: 0,
+    marginLeft: 12
   },
   progress: {
-    flex: 0
+    flex: 1,
+    marginRight: 12,
+    opacity: .7
   },
-  progressLabel: {
-    display: 'inline-block',
-    padding: '8px 16px',
-    borderRadius: 24,
-    backgroundColor: colors.primary[500],
-    color: '#FFF',
-    fontWeight: 300
+  progressBar: {
+    borderRadius: 3,
+    width: '100%',
+    height: 12,
+    backgroundColor: colors.text[200],
+    boxShadow: `1px 1px 5px 1px ${ colors.text[300] }`,
+    overflow: 'hidden'
+  },
+  progressValue: {
+    width: 0,
+    height: '100%',
+    transition: 'width .4s linear',
+    background: `linear-gradient(45deg, ${ colors.primary['A200'] } 30%, ${ colors.secondary['A200'] } 90%)`,
+    boxShadow: `2px 0 5px 2px ${ color(colors.secondary['A200']).fade(0.7) }`
   },
   answerContainer: {
     flex: 0,
@@ -149,9 +160,12 @@ class QuestionsStep extends React.Component {
 
         <div className={ classes.footer }>
           <div className={ classes.progress }>
-            <span className={ classes.progressLabel }>
-              { `${ currentQuestion + 1 }/${ questions.length }` }
-            </span>
+            <div className={ classes.progressBar }>
+              <div
+                className={ classes.progressValue }
+                style={{ width: `${ ((currentQuestion + 1) / questions.length) * 100 }%` }}
+              />
+            </div>
           </div>
           <div className={ classes.button }>
             <RaisedButton

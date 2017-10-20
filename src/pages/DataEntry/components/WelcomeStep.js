@@ -1,10 +1,19 @@
 import React from 'react';
+import color from 'color';
 import { withStyles } from 'material-ui/styles';
 import { RaisedButton } from '../../../components';
+import { colors } from '../../../conventions';
 
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
+  header: {
+    padding: '40px 0 48px',
+    margin: '-24px -24px 24px',
+    textAlign: 'center',
+    fontWeight: 600,
+    background: `linear-gradient(45deg, ${ color(colors.primary['A200']).fade(.3) } 30%, ${ color(colors.secondary['A200']).fade(.3) } 90%)`
+  },
   title: {
     fontSize: 18,
     marginBottom: 16,
@@ -12,7 +21,8 @@ const styles = theme => ({
   },
   paragraph: {
     fontSize: 16,
-    marginBottom: 4
+    marginBottom: 4,
+    textAlign: 'justify'
   },
   button: {
     marginTop: 24,
@@ -33,6 +43,10 @@ class WelcomeStep extends React.Component {
     
     return (
       <form onSubmit={ this.handleSubmit.bind(this) }>
+
+        <Typography type="display2" className={ classes.header }>
+          Hagamos un experimento
+        </Typography>
 
         <Typography type="title" className={ classes.title }>
           Bienvenida/o y gracias por participar

@@ -75,7 +75,7 @@ class DataEntry extends React.Component {
         return <CommentStep onSubmit={ this.handleComment.bind(this) } />;
 
       case 'end':
-        return <EndStep />;
+        return <EndStep score={ this.state.form.questions.filter(q => q.isCorrect).length } questionsCount={ questions.length } />;
       
       default: return null;
     

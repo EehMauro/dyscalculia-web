@@ -20,6 +20,9 @@ const styles = theme => ({
   },
   button: {
     textAlign: 'right'
+  },
+  helperText: {
+    fontSize: 10
   }
 });
 
@@ -29,13 +32,9 @@ class ProfileStep extends React.Component {
     email: '',
     age: '',
     gender: '',
-    educationLevel: ''
-  }
-
-  getLabel () {
-    let { email, age, gender, educationLevel } = this.state;
-    if (email === '' && age === '' && gender === '' && educationLevel === '') return 'Omitir';
-    return 'Siguiente';
+    educationLevel: '',
+    triedMoravec: '',
+    submitted: false
   }
 
   handleChange (field, value) {
@@ -51,13 +50,17 @@ class ProfileStep extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
-    let { email, age, gender, educationLevel } = this.state;
-    this.props.onSubmit({
-      email: email !== '' ? email : null,
-      age: age !== '' ? age : null,
-      gender: gender !== '' ? gender : null,
-      educationLevel: educationLevel !== '' ? educationLevel : null
-    });
+    this.setState({ submitted: true });
+    let { email, age, gender, educationLevel, triedMoravec } = this.state;
+    if (triedMoravec !== '') {
+      this.props.onSubmit({
+        email: email,
+        age: age !== '' ? age : null,
+        gender: gender !== '' ? gender : null,
+        educationLevel: educationLevel !== '' ? educationLevel : null,
+        triedMoravec: triedMoravec
+      });
+    }
   }
 
   render () {
@@ -71,11 +74,10 @@ class ProfileStep extends React.Component {
           Complete la siguiente información
         </Typography>
 
-        <TextField fullWidth className={ classes.input }
+        <TextField fullWidth required className={ classes.input }
           label="Email"
           type="email"
           name="email"
-          helperText="Opcional"
           value={ this.state.email }
           onChange={ e => this.handleChange('email', e.target.value) }
         />
@@ -87,6 +89,9 @@ class ProfileStep extends React.Component {
           helperText="Opcional"
           value={ this.state.age }
           onChange={ e => this.handleChangeAge(e.target.value) }
+          FormHelperTextProps={{
+            classes: { root: classes.helperText }
+          }}
         />
 
         <FormControl fullWidth className={ classes.input }>
@@ -96,12 +101,11 @@ class ProfileStep extends React.Component {
             value={ this.state.gender }
             onChange={ e => this.handleChange('gender', e.target.value) }
           >
-            <MenuItem value=""></MenuItem>
-            <MenuItem value="male">Masculino</MenuItem>
-            <MenuItem value="female">Femenino</MenuItem>
+            <MenuItem value="female">Mujer</MenuItem>
+            <MenuItem value="male">Varón</MenuItem>
             <MenuItem value="other">Otro</MenuItem>
           </Select>
-          <FormHelperText>Opcional</FormHelperText>
+          <FormHelperText classes={{ root: classes.helperText }}>Opcional</FormHelperText>
         </FormControl>
 
         <FormControl fullWidth className={ classes.input }>
@@ -111,18 +115,29 @@ class ProfileStep extends React.Component {
             value={ this.state.educationLevel }
             onChange={ e => this.handleChange('educationLevel', e.target.value) }
           >
-            <MenuItem value=""></MenuItem>
             <MenuItem value="none">Ninguno</MenuItem>
             <MenuItem value="primary">Primario</MenuItem>
             <MenuItem value="high-school">Secundario</MenuItem>
             <MenuItem value="academic">Terciario / Universitario</MenuItem>
             <MenuItem value="postgraduate">Posgrado</MenuItem>
           </Select>
-          <FormHelperText>Opcional</FormHelperText>
+          <FormHelperText classes={{ root: classes.helperText }}>Opcional</FormHelperText>
+        </FormControl>
+
+        <FormControl fullWidth required error={ this.state.triedMoravec === '' && this.state.submitted } className={ classes.input }>
+          <InputLabel htmlFor="tried-moravec">¿Jugaste a Moravec?</InputLabel>
+          <Select required
+            input={ <Input id="tried-moravec" /> }
+            value={ this.state.triedMoravec }
+            onChange={ e => this.handleChange('triedMoravec', e.target.value) }
+          >
+            <MenuItem value="yes">Si</MenuItem>
+            <MenuItem value="no">No</MenuItem>
+          </Select>
         </FormControl>
 
         <div className={ classes.button }>
-          <RaisedButton label={ this.getLabel() } icon="chevron_right" type="submit" style={{ minWidth: '160px' }} />
+          <RaisedButton label="Siguiente" icon="chevron_right" type="submit" style={{ minWidth: '160px' }} />
         </div>
 
       </form>
