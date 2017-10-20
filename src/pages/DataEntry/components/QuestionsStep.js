@@ -71,6 +71,21 @@ const styles = theme => ({
     margin: '12px 0',
     flexWrap: 'wrap'
   },
+  visuospatialContainer: {
+    flex: 0,
+    display: 'flex',
+    padding: 24,
+    margin: '12px 0 0',
+    flexWrap: 'wrap'
+  },
+  mirrorContainer: {
+    flex: 0,
+    display: 'flex',
+    padding: 24,
+    margin: '12px 0 0',
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  },
   fractionValue: {
     flex: 0,
     minWidth: 32,
@@ -187,9 +202,9 @@ class QuestionsStep extends React.Component {
     return (
       <div style={{ flex: 0, padding: '0 24px' }}>
         <Slider
-          step={ 1 } min={ 0 } max={ 10 }
-          defaultValue={ 5 }
-          marks={{ 0: '0', 2: '', 4: '', 6: '', 8: '', 10: '10' }}
+          step={ 10 } min={ 0 } max={ 100 }
+          defaultValue={ 50 }
+          marks={{ 0: '0', 20: '', 40: '', 60: '', 80: '', 100: '100' }}
           onAfterChange={ value => this.handleAnswer(null, value) }
           trackStyle={{ backgroundColor: colors.primary['A200'] }}
           handleStyle={{ borderColor: colors.primary['A200'], backgroundColor: '#FFF', boxShadow: 'none' }}
@@ -226,11 +241,70 @@ class QuestionsStep extends React.Component {
     );
   }
 
+  renderVisuospatial (question) {
+    return (
+      <div className={ this.props.classes.visuospatialContainer }>
+
+        <div style={{ flex: 0, padding: 12, marginRight: 24, textAlign: 'center' }}>
+          <img src={ question.image } alt="question" /> 
+        </div>
+
+        { question.options.map((image, index) => (
+          <div key={ index } style={{ flex: 0, padding: 12, textAlign: 'center' }}>
+            <img src={ image } alt={ `answer-${ index + 1 }` } />
+            <Radio
+              name="visuospatial-question"
+              checked={ this.state.answer === index + 1 }
+              onChange={ e => this.handleAnswer(null, parseInt(e.target.value)) }
+              value={ index + 1 }
+            />
+          </div>
+        )) }
+
+      </div>
+    );
+  }
+
+  renderMirror (question) {
+    return (
+      <div>
+        <div className={ this.props.classes.mirrorContainer }>
+
+          <div style={{ flex: 0, marginRight: 24, textAlign: 'center' }}>
+            <img src={ question.imageOriginal } alt="image-original" width={ 200 } /> 
+          </div>
+
+          <div style={{ flex: 0, marginLeft: 24, textAlign: 'center' }}>
+            <img src={ question.imageMirrored } alt="image-mirrored" width={ 200 } /> 
+          </div>
+
+          <div style={{ flex: 1, padding: '0 64px' }}>
+            <FormControl component="fieldset">
+              <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
+                <FormControlLabel
+                  label="Si" value="yes" control={ <Radio /> }
+                  classes={{ label: this.props.classes.optionLabel }}
+                />
+                <FormControlLabel
+                  label="No" value="no" control={ <Radio /> }
+                  classes={{ label: this.props.classes.optionLabel }}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
   renderQuestion (question) {
     switch (question.type) {
       case 'multiple-choice-question': return this.renderMultipleChoice(question);
       case 'scale-question': return this.renderScale(question);
       case 'fraction-question': return this.renderFraction(question);
+      case 'visuospatial-question': return this.renderVisuospatial(question);
+      case 'mirror-question': return this.renderMirror(question);
       default: return null;
     }
   }
