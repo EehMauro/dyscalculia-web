@@ -7,13 +7,13 @@ import { colors } from '../conventions';
 
 const styles = theme => ({
   button: {
-    background: `linear-gradient(45deg, ${ color(colors.primary['A200']).fade(.2) } 30%, ${ color(colors.secondary['A200']).fade(.2) } 90%)`,
     borderRadius: 3,
     border: 0,
     color: 'white',
     height: 48,
     padding: '0 32px',
-    boxShadow: `0 1px 5px 2px ${ color(colors.primary['A200']).fade(.7) }`
+    boxShadow: `0 1px 5px 2px ${ color(colors.primary['A200']).fade(.7) }`,
+    fontWeight: 400
   }
 });
 

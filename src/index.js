@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import 'typeface-open-sans';
+import 'typeface-roboto';
 import 'rc-slider/assets/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';

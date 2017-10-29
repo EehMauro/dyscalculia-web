@@ -12,7 +12,7 @@ export default function () {
   
   return createMuiTheme({
     typography: {
-      fontFamily: 'Open Sans, sans-serif'
+      fontFamily: 'Roboto, sans-serif'
     },
     palette: {
       primary: primary,

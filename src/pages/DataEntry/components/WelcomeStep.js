@@ -65,7 +65,7 @@ class WelcomeStep extends React.Component {
         </Typography>
 
         <div className={ classes.button }>
-          <RaisedButton label="Empezar" icon="chevron_right" type="submit" style={{ minWidth: '160px' }} />
+          <RaisedButton label="Empezar" type="submit" style={{ minWidth: '160px' }} />
         </div>
 
       </form>

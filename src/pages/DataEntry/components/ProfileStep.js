@@ -32,9 +32,7 @@ class ProfileStep extends React.Component {
     email: '',
     age: '',
     gender: '',
-    educationLevel: '',
-    triedMoravec: '',
-    submitted: false
+    educationLevel: ''
   }
 
   handleChange (field, value) {
@@ -50,17 +48,13 @@ class ProfileStep extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
-    this.setState({ submitted: true });
-    let { email, age, gender, educationLevel, triedMoravec } = this.state;
-    if (triedMoravec !== '') {
-      this.props.onSubmit({
-        email: email,
-        age: age !== '' ? age : null,
-        gender: gender !== '' ? gender : null,
-        educationLevel: educationLevel !== '' ? educationLevel : null,
-        triedMoravec: triedMoravec
-      });
-    }
+    let { email, age, gender, educationLevel } = this.state;
+    this.props.onSubmit({
+      email: email,
+      age: age !== '' ? age : null,
+      gender: gender !== '' ? gender : null,
+      educationLevel: educationLevel !== '' ? educationLevel : null
+    });
   }
 
   render () {
@@ -124,20 +118,8 @@ class ProfileStep extends React.Component {
           <FormHelperText classes={{ root: classes.helperText }}>Opcional</FormHelperText>
         </FormControl>
 
-        <FormControl fullWidth required error={ this.state.triedMoravec === '' && this.state.submitted } className={ classes.input }>
-          <InputLabel htmlFor="tried-moravec">¿Jugaste a Moravec?</InputLabel>
-          <Select required
-            input={ <Input id="tried-moravec" /> }
-            value={ this.state.triedMoravec }
-            onChange={ e => this.handleChange('triedMoravec', e.target.value) }
-          >
-            <MenuItem value="yes">Si</MenuItem>
-            <MenuItem value="no">No</MenuItem>
-          </Select>
-        </FormControl>
-
         <div className={ classes.button }>
-          <RaisedButton label="Siguiente" icon="chevron_right" type="submit" style={{ minWidth: '160px' }} />
+          <RaisedButton label="Siguiente" type="submit" style={{ minWidth: '160px' }} />
         </div>
 
       </form>

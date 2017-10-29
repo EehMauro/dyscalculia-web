@@ -4,12 +4,19 @@ import { RaisedButton } from '../../../components';
 
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import Input from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import { FormControl } from 'material-ui/Form';
+import Select from 'material-ui/Select';
 
 const styles = theme => ({
   title: {
     fontSize: 18,
     marginBottom: 16,
     fontWeight: 600
+  },
+  input: {
+    marginBottom: 32
   },
   button: {
     marginTop: 20,
@@ -20,7 +27,9 @@ const styles = theme => ({
 class CommentStep extends React.Component {
 
   state = {
-    comment: ''
+    comment: '',
+    triedMoravec: '',
+    submitted: false
   }
 
   getLabel () {
@@ -28,14 +37,24 @@ class CommentStep extends React.Component {
     return 'Siguiente';
   }
 
-  handleChange (event) {
+  handleChangeComment (event) {
     this.setState({ comment: event.target.value });
+  }
+
+  handleChangeSelect (event) {
+    this.setState({ triedMoravec: event.target.value });
   }
 
   handleSubmit (event) {
     event.preventDefault();
-    let { comment } = this.state;
-    this.props.onSubmit(comment !== '' ? comment : null);
+    this.setState({ submitted: true });
+    let { comment, triedMoravec } = this.state;
+    if (triedMoravec !== '') {
+      this.props.onSubmit({
+        comment: comment !== '' ? comment : null,
+        triedMoravec: triedMoravec
+      });
+    }
   }
 
   render () {
@@ -46,6 +65,21 @@ class CommentStep extends React.Component {
       <form onSubmit={ this.handleSubmit.bind(this) }>
 
         <Typography type="title" className={ classes.title }>
+          ¿Usaste Moravec o alguna otra aplicación para entrenar cálculo? *
+        </Typography>
+
+        <FormControl fullWidth required error={ this.state.triedMoravec === '' && this.state.submitted } className={ classes.input }>
+          <Select required
+            input={ <Input id="tried-moravec" /> }
+            value={ this.state.triedMoravec }
+            onChange={ this.handleChangeSelect.bind(this) }
+          >
+            <MenuItem value="Si">Si</MenuItem>
+            <MenuItem value="No">No</MenuItem>
+          </Select>
+        </FormControl>
+
+        <Typography type="title" className={ classes.title }>
           ¿Querés agregar algún comentario?
         </Typography>
 
@@ -53,12 +87,12 @@ class CommentStep extends React.Component {
           placeholder="Tu respuesta"
           helperText="Opcional"
           value={ this.state.comment }
-          onChange={ this.handleChange.bind(this) }
+          onChange={ this.handleChangeComment.bind(this) }
           multiline rows="1" rowsMax="3"
         />
 
         <div className={ classes.button }>
-          <RaisedButton label={ this.getLabel() } icon="chevron_right" type="submit" style={{ minWidth: '160px' }} />
+          <RaisedButton label="Siguiente" type="submit" style={{ minWidth: '160px' }} />
         </div>
 
       </form>

@@ -50,8 +50,8 @@ class DataEntry extends React.Component {
     this.handleNext();
   }
 
-  handleComment (comment) {
-    this.setState({ form: { ...this.state.form, comment } });
+  handleComment ({ comment, triedMoravec }) {
+    this.setState({ form: { ...this.state.form, comment, triedMoravec } });
     this.handleNext();
   }
 

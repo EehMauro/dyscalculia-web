@@ -26,7 +26,7 @@ class Wrapper extends React.Component {
               type: 'text/css',
               cssText: `
                 html {
-                  font-family: Open Sans !important;
+                  font-family: Roboto !important;
                   background: ${ colors.text[100] };
                   color: ${ colors.text[900] };
                 }

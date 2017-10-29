@@ -108,10 +108,7 @@ class QuestionsStep extends React.Component {
     startTime: 0,
     currentQuestion: 0,
     answer: null,
-    questions: [],
-
-    fraction1: '',
-    fraction2: ''
+    questions: []
   }
 
   componentDidMount () {
@@ -122,18 +119,9 @@ class QuestionsStep extends React.Component {
     this.setState({ answer });
   }
 
-  handleChangeFraction1 (value) {
-    this.setState({
-      fraction1: value,
-      answer: `${ value }/${ this.state.fraction2 }`
-    });
-  }
-
-  handleChangeFraction2 (value) {
-    this.setState({
-      fraction2: value,
-      answer: `${ this.state.fraction1 }/${ value }`
-    });
+  isAnswerCorrect (question, answer) {
+    if (question.type !== 'scale-question') return question.correctAnswer === answer;
+    return answer >= question.correctAnswer - 5 && answer <= question.correctAnswer + 5;
   }
 
   handleNext (event) {
@@ -146,7 +134,7 @@ class QuestionsStep extends React.Component {
         {
           id: question.id,
           answer: answer,
-          isCorrect: question.correctAnswer === answer,
+          isCorrect: this.isAnswerCorrect(question, answer),
           completionTime: +moment().format('x')
         }
       ],
@@ -202,41 +190,41 @@ class QuestionsStep extends React.Component {
     return (
       <div style={{ flex: 0, padding: '0 24px' }}>
         <Slider
-          step={ 10 } min={ 0 } max={ 100 }
+          step={ 1 } min={ 0 } max={ 100 }
           defaultValue={ 50 }
-          marks={{ 0: '0', 20: '', 40: '', 60: '', 80: '', 100: '100' }}
+          marks={{
+            0: {
+              style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
+              label: '0'
+            },
+            25: '',
+            50: '',
+            75: '',
+            100: {
+              style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
+              label: '100'
+            },
+          }}
           onAfterChange={ value => this.handleAnswer(null, value) }
-          trackStyle={{ backgroundColor: colors.primary['A200'] }}
-          handleStyle={{ borderColor: colors.primary['A200'], backgroundColor: '#FFF', boxShadow: 'none' }}
-          railStyle={{ backgroundColor: colors.primary['A200'] }}
-          dotStyle={{ borderColor: colors.primary['A200'], backgroundColor: colors.primary['A200'] }}
+          trackStyle={{
+            backgroundColor: colors.secondary['A200']
+          }}
+          handleStyle={{
+            borderColor: colors.secondary['A200'],
+            backgroundColor: '#FFF',
+            boxShadow: 'none',
+            width: 30, height: 30,
+            marginLeft: -15, marginTop: -13,
+            borderWidth: 4
+          }}
+          railStyle={{
+            backgroundColor: colors.secondary['A200']
+          }}
+          dotStyle={{
+            borderColor: colors.secondary['A200'],
+            backgroundColor: colors.secondary['A200']
+          }}
         />
-      </div>
-    );
-  }
-
-  renderFraction (question) {
-    return (
-      <div className={ this.props.classes.fractionContainer }>
-
-        <div style={{ flex: 0, marginRight: 48, textAlign: 'center' }}>
-          <img src={ question.image } alt={ question.label } width={ 200 } /> 
-        </div>
-
-        <div className={ this.props.classes.fractionValue }>
-          <TextField fullWidth
-            type="number"
-            value={ this.state.fraction1 }
-            onChange={ e => this.handleChangeFraction1(e.target.value) }
-          />
-          <div className={ this.props.classes.fractionValueDivider } />
-          <TextField fullWidth
-            type="number"
-            value={ this.state.fraction2 }
-            onChange={ e => this.handleChangeFraction2(e.target.value) }
-          />
-        </div>
-
       </div>
     );
   }
@@ -282,11 +270,11 @@ class QuestionsStep extends React.Component {
             <FormControl component="fieldset">
               <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
                 <FormControlLabel
-                  label="Si" value="yes" control={ <Radio /> }
+                  label="Si" value="Si" control={ <Radio /> }
                   classes={{ label: this.props.classes.optionLabel }}
                 />
                 <FormControlLabel
-                  label="No" value="no" control={ <Radio /> }
+                  label="No" value="No" control={ <Radio /> }
                   classes={{ label: this.props.classes.optionLabel }}
                 />
               </RadioGroup>
@@ -302,7 +290,6 @@ class QuestionsStep extends React.Component {
     switch (question.type) {
       case 'multiple-choice-question': return this.renderMultipleChoice(question);
       case 'scale-question': return this.renderScale(question);
-      case 'fraction-question': return this.renderFraction(question);
       case 'visuospatial-question': return this.renderVisuospatial(question);
       case 'mirror-question': return this.renderMirror(question);
       default: return null;
@@ -338,7 +325,6 @@ class QuestionsStep extends React.Component {
           <div className={ classes.button }>
             <RaisedButton
               type="submit"
-              icon="chevron_right"
               label={ answer ? 'Siguiente' : 'Omitir' }
               style={{ minWidth: '160px' }}
             />

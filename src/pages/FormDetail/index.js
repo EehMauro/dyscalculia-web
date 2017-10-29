@@ -109,6 +109,11 @@ class FormDetail extends React.Component {
             <p className={ classes.label }>Comment</p>
             <p className={ classes.value }>{ form.comment || '-' }</p>
           </div>
+
+          <div>
+            <p className={ classes.label }>Tried Moravec</p>
+            <p className={ classes.value }>{ form.triedMoravec }</p>
+          </div>
         
         </AdminPanelPage>
         <AdminPanelPage>
