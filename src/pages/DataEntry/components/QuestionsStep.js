@@ -7,7 +7,6 @@ import { colors } from '../../../conventions';
 
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import TextField from 'material-ui/TextField';
 import { FormControl, FormControlLabel } from 'material-ui/Form';
 import Slider from 'rc-slider';
 
@@ -243,7 +242,7 @@ class QuestionsStep extends React.Component {
             <Radio
               name="visuospatial-question"
               checked={ this.state.answer === index + 1 }
-              onChange={ e => this.handleAnswer(null, parseInt(e.target.value)) }
+              onChange={ e => this.handleAnswer(null, parseInt(e.target.value, 10)) }
               value={ index + 1 }
             />
           </div>
@@ -259,11 +258,11 @@ class QuestionsStep extends React.Component {
         <div className={ this.props.classes.mirrorContainer }>
 
           <div style={{ flex: 0, marginRight: 24, textAlign: 'center' }}>
-            <img src={ question.imageOriginal } alt="image-original" width={ 200 } /> 
+            <img src={ question.imageOriginal } alt="original" width={ 200 } /> 
           </div>
 
           <div style={{ flex: 0, marginLeft: 24, textAlign: 'center' }}>
-            <img src={ question.imageMirrored } alt="image-mirrored" width={ 200 } /> 
+            <img src={ question.imageMirrored } alt="mirrored" width={ 200 } /> 
           </div>
 
           <div style={{ flex: 1, padding: '0 64px' }}>

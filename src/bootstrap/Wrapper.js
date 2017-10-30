@@ -10,7 +10,7 @@ class Wrapper extends React.Component {
     return (
       <div>
         <Helmet
-          title="Test"
+          title="Hagamos un experimento"
           link={[
             {
               rel: 'stylesheet',
@@ -19,6 +19,10 @@ class Wrapper extends React.Component {
             { 
               rel: 'stylesheet',
               href: 'https://fonts.googleapis.com/css?family=Material+Icons'
+            },
+            { 
+              rel: 'stylesheet',
+              href: 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
             }
           ]}
           style={[
@@ -29,6 +33,15 @@ class Wrapper extends React.Component {
                   font-family: Roboto !important;
                   background: ${ colors.text[100] };
                   color: ${ colors.text[900] };
+                }
+                .CircularProgressbar-path {
+                  stroke: ${ colors.primary['A200'] } !important;
+                }
+                .CircularProgressbar-text {
+                  fill: ${ colors.primary['A200'] } !important;
+                  font-size: 20px !important;
+                  font-family: Roboto !important;
+                  font-weight: 400 !important;
                 }
               `
             }
