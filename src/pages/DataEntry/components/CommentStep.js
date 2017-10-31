@@ -65,7 +65,7 @@ class CommentStep extends React.Component {
       <form onSubmit={ this.handleSubmit.bind(this) }>
 
         <Typography type="title" className={ classes.title }>
-          ¿Usaste Moravec o alguna otra aplicación para entrenar cálculo? *
+          ¿Usaste Moravec o alguna otra aplicación para entrenar cálculo mental? *
         </Typography>
 
         <FormControl fullWidth required error={ this.state.triedMoravec === '' && this.state.submitted } className={ classes.input }>
