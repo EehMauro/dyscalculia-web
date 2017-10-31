@@ -63,7 +63,7 @@ class FormDetail extends React.Component {
 
   componentDidMount () {
     let { id } = this.props.params;
-    this.props.dispatch(setPageTitle(`Form #${ id }`));
+    this.props.dispatch(setPageTitle(id));
     this.props.dispatch(fetchForm(id));
   }
 

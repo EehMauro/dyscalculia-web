@@ -12,7 +12,6 @@ import Slider from 'rc-slider';
 
 const styles = theme => ({
   container: {
-    minHeight: 300,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'
@@ -21,8 +20,10 @@ const styles = theme => ({
     fontSize: 26,
     marginBottom: 16,
     fontWeight: 400,
-    flex: 0,
-    lineHeight: 1.3
+    lineHeight: 1.3,
+    '@media only screen and (max-width : 960px)': {
+      fontSize: 20
+    }
   },
   footer: {
     flex: 0,
@@ -56,48 +57,22 @@ const styles = theme => ({
     boxShadow: `2px 0 5px 2px ${ color(colors.secondary['A200']).fade(0.7) }`
   },
   answerContainer: {
-    flex: 0,
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 24,
     flexWrap: 'wrap'
   },
-  fractionContainer: {
-    flex: 0,
-    display: 'flex',
-    alignItems: 'center',
-    padding: 24,
-    margin: '12px 0',
-    flexWrap: 'wrap'
-  },
   visuospatialContainer: {
-    flex: 0,
-    display: 'flex',
     padding: 24,
-    margin: '12px 0 0',
-    flexWrap: 'wrap'
-  },
-  mirrorContainer: {
-    flex: 0,
-    display: 'flex',
-    padding: 24,
-    margin: '12px 0 0',
-    alignItems: 'center',
-    flexWrap: 'wrap'
-  },
-  fractionValue: {
-    flex: 0,
-    minWidth: 32,
-    border: `2px solid ${ colors.text[800] }`
-  },
-  fractionValueDivider: {
-    borderTop: `2px solid ${ colors.text[800] }`,
-    height: 1
+    margin: '12px 0 0'
   },
   optionLabel: {
     fontSize: 24,
     position: 'relative',
-    top: -1
+    top: -1,
+    '@media only screen and (max-width : 960px)': {
+      fontSize: 20
+    }
   }
 });
 
@@ -160,20 +135,28 @@ class QuestionsStep extends React.Component {
 
   renderMultipleChoice (question) {
     return (
-      <div className={ this.props.classes.answerContainer }>
+      <div style={{ flex: 1 }}>
 
-        { question.image ?
-          <div style={{ flex: 0, marginRight: 24, marginBottom: 12, textAlign: 'center' }}>
-            <img src={ question.image } alt={ question.label } /> 
+        <Typography type="title" className={ this.props.classes.question }>
+          { question.label }
+        </Typography>
+
+        <div className={ this.props.classes.answerContainer }>
+
+          { question.image ?
+            <div style={{ flex: 0, marginRight: 24, marginBottom: 12, textAlign: 'center' }}>
+              <img src={ question.image } alt={ question.label } width={ 280 } /> 
+            </div>
+          : null }
+
+          <div style={{ flex: 1 }}>
+            <FormControl component="fieldset">
+              <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
+                { this.renderMultipleChoiceOptions(question.options) }
+              </RadioGroup>
+            </FormControl>
           </div>
-        : null }
 
-        <div style={{ flex: 1 }}>
-          <FormControl component="fieldset">
-            <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
-              { this.renderMultipleChoiceOptions(question.options) }
-            </RadioGroup>
-          </FormControl>
         </div>
 
       </div>
@@ -182,66 +165,85 @@ class QuestionsStep extends React.Component {
 
   renderScale (question) {
     return (
-      <div style={{ flex: 0, padding: '0 24px' }}>
-        <Slider
-          step={ 1 } min={ 0 } max={ 100 }
-          defaultValue={ 50 }
-          marks={{
-            0: {
-              style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
-              label: '0'
-            },
-            25: '',
-            50: '',
-            75: '',
-            100: {
-              style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
-              label: '100'
-            },
-          }}
-          onAfterChange={ value => this.handleAnswer(null, value) }
-          trackStyle={{
-            backgroundColor: colors.secondary['A200']
-          }}
-          handleStyle={{
-            borderColor: colors.secondary['A200'],
-            backgroundColor: '#FFF',
-            boxShadow: 'none',
-            width: 30, height: 30,
-            marginLeft: -15, marginTop: -13,
-            borderWidth: 4
-          }}
-          railStyle={{
-            backgroundColor: colors.secondary['A200']
-          }}
-          dotStyle={{
-            borderColor: colors.secondary['A200'],
-            backgroundColor: colors.secondary['A200']
-          }}
-        />
+      <div style={{ flex: 1 }}>
+
+        <Typography type="title" className={ this.props.classes.question }>
+          { question.label }
+        </Typography>
+
+        <div style={{ flex: 0, padding: '48px 24px 64px' }}>
+          <Slider
+            step={ 1 } min={ 0 } max={ 100 }
+            defaultValue={ 50 }
+            marks={{
+              0: {
+                style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
+                label: '0'
+              },
+              25: '',
+              50: '',
+              75: '',
+              100: {
+                style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
+                label: '100'
+              },
+            }}
+            onAfterChange={ value => this.handleAnswer(null, value) }
+            trackStyle={{
+              backgroundColor: colors.secondary['A200']
+            }}
+            handleStyle={{
+              borderColor: colors.secondary['A200'],
+              backgroundColor: '#FFF',
+              boxShadow: 'none',
+              width: 30, height: 30,
+              marginLeft: -15, marginTop: -13,
+              borderWidth: 4
+            }}
+            railStyle={{
+              backgroundColor: colors.secondary['A200']
+            }}
+            dotStyle={{
+              borderColor: colors.secondary['A200'],
+              backgroundColor: colors.secondary['A200']
+            }}
+          />
+        </div>
+
       </div>
     );
   }
 
   renderVisuospatial (question) {
     return (
-      <div className={ this.props.classes.visuospatialContainer }>
+      <div style={{ flex: 1 }}>
+      
+        <Typography type="title" className={ this.props.classes.question }>
+          { question.label }
+        </Typography>
 
-        <div style={{ flex: 0, padding: 12, marginRight: 24, textAlign: 'center' }}>
-          <img src={ question.image } alt="question" /> 
-        </div>
+        <div className={ this.props.classes.visuospatialContainer }>
 
-        { question.options.map((image, index) => (
-          <div key={ index } style={{ flex: 0, padding: 12, textAlign: 'center' }}>
-            <img src={ image } alt={ `answer-${ index + 1 }` } />
-            <Radio
-              name="visuospatial-question"
-              checked={ this.state.answer === index + 1 }
-              onChange={ e => this.handleAnswer(null, parseInt(e.target.value, 10)) }
-              value={ index + 1 }
-            />
+          <div style={{ padding: 12, textAlign: 'center', marginBottom: 24 }}>
+            <img src={ question.image } alt="question" /> 
           </div>
-        )) }
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            { question.options.map((image, index) => (
+              <div key={ index } style={{ flex: 0, padding: 12, textAlign: 'center' }}>
+                <img src={ image } alt={ `answer-${ index + 1 }` } />
+                <br />
+                <Radio
+                  name="visuospatial-question"
+                  checked={ this.state.answer === index + 1 }
+                  onChange={ e => this.handleAnswer(null, parseInt(e.target.value, 10)) }
+                  value={ index + 1 }
+                />
+              </div>
+            )) }
+          </div>
+
+        </div>
 
       </div>
     );
@@ -249,33 +251,39 @@ class QuestionsStep extends React.Component {
 
   renderMirror (question) {
     return (
-      <div>
-        <div className={ this.props.classes.mirrorContainer }>
+      <div style={{ flex: 1 }}>
+
+        <div style={{ flex: 0, display: 'flex', marginBottom: 24, justifyContent: 'center' }}>
 
           <div style={{ flex: 0, marginRight: 24, textAlign: 'center' }}>
-            <img src={ question.imageOriginal } alt="original" width={ 200 } /> 
+            <img src={ question.imageOriginal } alt="original" width={ 140 } /> 
           </div>
 
           <div style={{ flex: 0, marginLeft: 24, textAlign: 'center' }}>
-            <img src={ question.imageMirrored } alt="mirrored" width={ 200 } /> 
-          </div>
-
-          <div style={{ flex: 1, padding: '0 64px' }}>
-            <FormControl component="fieldset">
-              <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
-                <FormControlLabel
-                  label="Si" value="Si" control={ <Radio /> }
-                  classes={{ label: this.props.classes.optionLabel }}
-                />
-                <FormControlLabel
-                  label="No" value="No" control={ <Radio /> }
-                  classes={{ label: this.props.classes.optionLabel }}
-                />
-              </RadioGroup>
-            </FormControl>
+            <img src={ question.imageMirrored } alt="mirrored" width={ 140 } /> 
           </div>
 
         </div>
+
+        <Typography type="title" className={ this.props.classes.question }>
+          { question.label }
+        </Typography>
+
+        <div style={{ flex: 1, padding: '0 64px' }}>
+          <FormControl component="fieldset">
+            <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
+              <FormControlLabel
+                label="Si" value="Si" control={ <Radio /> }
+                classes={{ label: this.props.classes.optionLabel }}
+              />
+              <FormControlLabel
+                label="No" value="No" control={ <Radio /> }
+                classes={{ label: this.props.classes.optionLabel }}
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
+
       </div>
     );
   }
@@ -300,10 +308,6 @@ class QuestionsStep extends React.Component {
     
     return (
       <form onSubmit={ this.handleNext.bind(this) } className={ classes.container }>
-
-        <Typography type="title" className={ classes.question }>
-          { question.label }
-        </Typography>
 
         { this.renderQuestion(question) }
 

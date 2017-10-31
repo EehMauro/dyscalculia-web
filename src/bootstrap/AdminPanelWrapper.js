@@ -32,10 +32,10 @@ const styles = theme => ({
     top: 0,
     width: 8,
     height: '100%',
-    background: `linear-gradient(45deg, ${ colors.primary['A200'] } 30%, ${ colors.secondary['A200'] } 90%)`
+    backgroundColor: colors.secondary['A200']
   },
   appTitle: {
-    fontWeight: 600,
+    fontWeight: 400,
     margin: 0,
     padding: 0
   },
@@ -44,7 +44,7 @@ const styles = theme => ({
     marginLeft: 300
   },
   sectionTitle: {
-    fontWeight: 400
+    fontWeight: 300
   },
   drawerPaper: {
     width: 300,
@@ -125,12 +125,6 @@ class AdminPanelWrapper extends React.Component {
                 <Icon>dashboard</Icon>
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button onClick={ () => this.props.dispatch(push('/admin/forms')) }>
-              <ListItemIcon>
-                <Icon>description</Icon>
-              </ListItemIcon>
-              <ListItemText primary="Forms" />
             </ListItem>
           </List>
           <Divider />
