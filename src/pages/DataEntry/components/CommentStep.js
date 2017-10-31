@@ -59,7 +59,7 @@ class CommentStep extends React.Component {
 
   render () {
 
-    let { classes } = this.props;
+    let { classes, isFetching } = this.props;
     
     return (
       <form onSubmit={ this.handleSubmit.bind(this) }>
@@ -92,7 +92,7 @@ class CommentStep extends React.Component {
         />
 
         <div className={ classes.button }>
-          <RaisedButton label="Siguiente" type="submit" style={{ minWidth: '160px' }} />
+          <RaisedButton label="Siguiente" type="submit" style={{ minWidth: '160px' }} disabled={ isFetching } />
         </div>
 
       </form>

@@ -8,7 +8,7 @@ const initialState = {
   profile: null
 };
 
-export default function session (state = initialState, action = {}) {
+export default function (state = initialState, action = {}) {
 
   switch (action.type) {
 

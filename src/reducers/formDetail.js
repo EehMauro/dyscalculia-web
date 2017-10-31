@@ -5,7 +5,7 @@ const initialState = {
   form: null
 };
 
-export default function formDetail (state = initialState, action = {}) {
+export default function (state = initialState, action = {}) {
 
   switch (action.type) {
 

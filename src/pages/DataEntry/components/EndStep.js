@@ -110,21 +110,21 @@ class EndStep extends React.Component {
 
               <Button
                 fab color="inherit" classes={{ root: classes.facebook }} target="_blank"
-                href="https://www.facebook.com/sharer/sharer.php?u=http%3A//52.205.212.82/"
+                href="https://www.facebook.com/sharer/sharer.php?u=http://52.205.212.82:8000"
               >
                 <i className={`ion-social-facebook ${ classes.icon }`} />
               </Button>
 
               <Button
                 fab color="inherit" classes={{ root: classes.twitter }} target="_blank"
-                href="http://twitter.com/share?text=Hagamos%20un%20experimento&url=http://52.205.212.82/"
+                href="http://twitter.com/share?text=Hagamos%20un%20experimento&url=http://52.205.212.82:8000"
               >
                 <i className={`ion-social-twitter ${ classes.icon }`} />
               </Button>
 
               <Button
                 fab color="inherit" classes={{ root: classes.whatsapp }}
-                href="whatsapp://send?text=Hagamos%20un%20experimento%0Ahttp://52.205.212.82/"
+                href="whatsapp://send?text=Hagamos%20un%20experimento%0Ahttp://52.205.212.82:8000"
               >
                 <i className={`ion-social-whatsapp ${ classes.icon }`} />
               </Button>

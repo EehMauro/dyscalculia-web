@@ -104,14 +104,23 @@ const styles = theme => ({
 class QuestionsStep extends React.Component {
 
   state = {
-    startTime: 0,
+    currentTime: 0,
     currentQuestion: 0,
-    answer: null,
-    questions: []
+    answer: null
   }
 
   componentDidMount () {
-    this.setState({ startTime: +moment().format('x') });
+    this.setState({ currentTime: +moment().format('x') });
+  }
+
+  componentWillReceiveProps (props) {
+    if (props.submitSuccess && !this.props.submitSuccess) {
+      this.setState({
+        currentQuestion: this.state.currentQuestion + 1,
+        currentTime: +moment().format('x'),
+        answer: null
+      });
+    }
   }
 
   handleAnswer (event, answer) {
@@ -125,32 +134,18 @@ class QuestionsStep extends React.Component {
 
   handleNext (event) {
     event.preventDefault();
-    let { currentQuestion, questions, answer } = this.state;
+
+    let { currentQuestion, answer } = this.state;
     let question = this.props.questions[currentQuestion];
-    this.setState({
-      questions: [
-        ...questions,
-        {
-          id: question.id,
-          answer: answer,
-          isCorrect: this.isAnswerCorrect(question, answer),
-          completionTime: +moment().format('x')
-        }
-      ],
-      currentQuestion: currentQuestion + 1,
-      answer: null
-    }, () => {
-      if (this.state.currentQuestion === this.props.questions.length) {
-        let lastCompletionTime = this.state.startTime;
-        this.props.onSubmit(this.state.questions.map(question => {
-          let q = {
-            ...question,
-            completionTime: (question.completionTime - lastCompletionTime) / 1000
-          };
-          lastCompletionTime = question.completionTime;
-          return q;
-        }));
-      }
+
+    let lastTime = this.state.currentTime;
+    let currentTime = +moment().format('x');
+
+    this.props.onSubmit({
+      id: question.id,
+      answer: answer,
+      isCorrect: this.isAnswerCorrect(question, answer),
+      completionTime: (currentTime - lastTime) / 1000
     });
   }
 
@@ -297,7 +292,7 @@ class QuestionsStep extends React.Component {
 
   render () {
 
-    let { classes, questions } = this.props;
+    let { classes, questions, isFetching } = this.props;
     let { currentQuestion, answer } = this.state;
     
     let question = questions[currentQuestion];
@@ -326,6 +321,7 @@ class QuestionsStep extends React.Component {
               type="submit"
               label={ answer ? 'Siguiente' : 'Omitir' }
               style={{ minWidth: '160px' }}
+              disabled={ isFetching }
             />
           </div>
         </div>

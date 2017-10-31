@@ -3,9 +3,8 @@ import moment from 'moment';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import { setPageTitle } from '../../actions/navigation';
 import { AdminPanelTablePage } from '../../components';
-import { fetchForms } from '../../actions/formList';
+import { fetchForms, setPageTitle } from '../../actions';
 import { colors } from '../../conventions';
 
 const styles = theme => ({

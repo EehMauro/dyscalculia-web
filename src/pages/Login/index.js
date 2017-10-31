@@ -7,7 +7,7 @@ import { colors } from '../../conventions';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 
-import { doLogin } from '../../actions/session';
+import { doLogin } from '../../actions';
 
 const styles = theme => ({
   title: theme.mixins.gutters({

@@ -1,6 +1,6 @@
 import { API_URL } from '../conventions';
 
-export function fetchForms() {
+export default function () {
 
   return async (dispatch, getState) => {
 
@@ -13,11 +13,11 @@ export function fetchForms() {
         headers: { 'Authorization': `Bearer ${ getState().session.token }` }
       }).then(response => response.json());
 
-      let { results } = response;
+      let { results: forms } = response;
 
-      if (!results) throw response;
+      if (!forms) throw response;
 
-      dispatch({ type: 'FORM_LIST_SUCCESS', forms: results });
+      dispatch({ type: 'FORM_LIST_SUCCESS', forms });
 
     } catch (error) {
 

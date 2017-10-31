@@ -3,8 +3,7 @@ import color from 'color';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { colors } from '../../conventions';
-import { setPageTitle } from '../../actions/navigation';
-import { fetchForms } from '../../actions/formList';
+import { fetchForms, setPageTitle } from '../../actions';
 
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';

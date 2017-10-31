@@ -1,10 +1,10 @@
 import { API_URL } from '../conventions';
 
-export function postForm(data) {
+export default function (data) {
 
   return async (dispatch, getState) => {
 
-    dispatch({ type: 'POST_FORM_FETCHING' });
+    dispatch({ type: 'CREATE_FORM_FETCHING' });
 
     try {
 
@@ -14,17 +14,17 @@ export function postForm(data) {
         body: JSON.stringify(data)
       }).then(response => response.json());
 
-      let { success } = response;
+      let { token } = response;
 
-      if (!success) throw response;
+      if (!token) throw response;
 
-      dispatch({ type: 'POST_FORM_SUCCESS' });
+      dispatch({ type: 'CREATE_FORM_SUCCESS', token });
 
     } catch (error) {
 
       console.log(error);
 
-      dispatch({ type: 'POST_FORM_ERROR' });
+      dispatch({ type: 'CREATE_FORM_ERROR' });
 
     }
 

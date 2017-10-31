@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
-import { fetchSession, doLogout } from '../actions/session';
+import { fetchSession, doLogout } from '../actions';
 import { colors } from '../conventions';
 
 import AppBar from 'material-ui/AppBar';

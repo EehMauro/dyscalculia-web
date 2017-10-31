@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import { setPageTitle } from '../../actions/navigation';
 import { AdminPanelPage, AdminPanelProgressPage } from '../../components';
-import { fetchForm } from '../../actions/formDetail';
+import { fetchForm, setPageTitle } from '../../actions';
 import Typography from 'material-ui/Typography';
 import Icon from 'material-ui/Icon';
 

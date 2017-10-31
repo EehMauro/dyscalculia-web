@@ -5,11 +5,11 @@ const initialState = {
   questions: null
 };
 
-export default function questions (state = initialState, action = {}) {
+export default function (state = initialState, action = {}) {
 
   switch (action.type) {
 
-    case 'GET_QUESTIONS_SUCCESS':
+    case 'FETCH_QUESTIONS_SUCCESS':
       return {
         ...state,
         isFetching: false,
@@ -17,7 +17,7 @@ export default function questions (state = initialState, action = {}) {
         questions: action.questions
       };
 
-    case 'GET_QUESTIONS_FETCHING':
+    case 'FETCH_QUESTIONS_FETCHING':
       return {
         ...state,
         isFetching: true,
@@ -25,7 +25,7 @@ export default function questions (state = initialState, action = {}) {
         questions: null
       };
 
-    case 'GET_QUESTIONS_ERROR':
+    case 'FETCH_QUESTIONS_ERROR':
       return {
         ...state,
         isFetching: false,
