@@ -89,7 +89,7 @@ class ProfileStep extends React.Component {
         />
 
         <FormControl fullWidth className={ classes.input }>
-          <InputLabel htmlFor="gender">Sexo</InputLabel>
+          <InputLabel htmlFor="gender">Género</InputLabel>
           <Select
             input={ <Input id="gender" /> }
             value={ this.state.gender }
