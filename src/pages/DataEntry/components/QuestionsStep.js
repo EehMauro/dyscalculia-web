@@ -120,7 +120,7 @@ class QuestionsStep extends React.Component {
       id: question.id,
       answer: answer,
       isCorrect: this.isAnswerCorrect(question, answer),
-      completionTime: (currentTime - lastTime) / 1000
+      completionTime: currentTime - lastTime
     });
   }
 
