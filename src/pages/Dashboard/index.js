@@ -104,7 +104,7 @@ class Dashboard extends React.Component {
           <div style={{ flex: 0, minWidth: 300 }}>
             <Button
               raised color="primary" style={{ width: '100%', marginBottom: 12 }}
-              target="_blank" href={ `${ API_URL }/forms/csv/data?token=${ this.props.token }` }
+              target="_blank" href={ `${ API_URL }/forms/csv/alldata?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
               &nbsp;&nbsp;
@@ -112,11 +112,11 @@ class Dashboard extends React.Component {
             </Button>
             <Button
               raised color="primary" style={{ width: '100%' }}
-              target="_blank" href={ `${ API_URL }/forms/csv/formatted?token=${ this.props.token }` }
+              target="_blank" href={ `${ API_URL }/forms/csv/questions?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
               &nbsp;&nbsp;
-              Download formatted data
+              Download questions
             </Button>
           </div>
 
