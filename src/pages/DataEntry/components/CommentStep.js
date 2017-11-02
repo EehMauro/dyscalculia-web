@@ -6,8 +6,8 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Input from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
-import { FormControl } from 'material-ui/Form';
-import Select from 'material-ui/Select';
+import { FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
+import Radio, { RadioGroup } from 'material-ui/Radio';
 
 const styles = theme => ({
   title: {
@@ -21,6 +21,9 @@ const styles = theme => ({
   button: {
     marginTop: 20,
     textAlign: 'right'
+  },
+  textarea: {
+    width: '100%'
   }
 });
 
@@ -69,14 +72,18 @@ class CommentStep extends React.Component {
         </Typography>
 
         <FormControl fullWidth required error={ this.state.triedMoravec === '' && this.state.submitted } className={ classes.input }>
-          <Select required
-            input={ <Input id="tried-moravec" /> }
+          <RadioGroup required
+            name="tried-moravec"
             value={ this.state.triedMoravec }
             onChange={ this.handleChangeSelect.bind(this) }
+            style={{ flexDirection: 'row' }}
           >
-            <MenuItem value="Si">Si</MenuItem>
-            <MenuItem value="No">No</MenuItem>
-          </Select>
+            <FormControlLabel value="Si" control={<Radio />} label="Si" style={{ marginRight: 48 }} />
+            <FormControlLabel value="No" control={<Radio />} label="No" />
+          </RadioGroup>
+          { this.state.triedMoravec === '' && this.state.submitted ?
+            <FormHelperText>Este campo es obligatorio</FormHelperText>
+          : null }
         </FormControl>
 
         <Typography type="title" className={ classes.title }>
@@ -88,7 +95,6 @@ class CommentStep extends React.Component {
           helperText="Opcional"
           value={ this.state.comment }
           onChange={ this.handleChangeComment.bind(this) }
-          multiline rows="1" rowsMax="3"
         />
 
         <div className={ classes.button }>

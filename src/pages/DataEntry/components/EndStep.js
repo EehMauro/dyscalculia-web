@@ -9,18 +9,19 @@ import CircularProgressbar from 'react-circular-progressbar';
 
 const styles = theme => ({
   title: {
-    fontSize: 26,
-    fontWeight: 400,
+    fontSize: 24,
+    fontWeight: 600,
     lineHeight: 1.3,
     textAlign: 'center',
     padding: 24,
     marginBottom: 16
   },
   text: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 400,
-    textAlign: 'center',
-    marginBottom: 16
+    textAlign: 'justify',
+    marginBottom: 16,
+    lineHeight: 1.3
   },
   scoreText: {
     marginTop: 32,
@@ -80,8 +81,9 @@ class EndStep extends React.Component {
         </Typography>
 
         <Typography type="title" className={ classes.text }>
-          En breve vamos a entrar en contacto con vos para contarte más sobre nuestro proyecto.<br/><br/>
-          Te pedimos un último favor: compartí este test con aquellas personas que pensás que podrían estar interesadas.
+          En breve vamos a entrar en contacto con vos para contarte más sobre nuestro proyecto.<br/>
+          Te pedimos un último favor: compartí este test con quienes pensás que podrían estar interesados. Cada persona que participa nos acerca a aprender más sobre matemática y sobre cómo las personas aprendemos matemática.<br/>
+          Con un montón de trabajo, poco de suerte y gracias a la colaboración de gente como vos, capaz hasta podemos encontrar la forma de que un montón de gente no sólo no la sufra, sino que hasta la empiece a disfrutar.
         </Typography>
 
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
