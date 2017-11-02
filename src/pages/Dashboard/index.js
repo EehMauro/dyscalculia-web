@@ -23,7 +23,8 @@ const styles = theme => ({
   widgetGradient: {
     display: 'flex',
     padding: 24,
-    paddingBottom: 22,
+    paddingTop: 27,
+    paddingBottom: 24,
     background: `linear-gradient(45deg, ${ color(colors.primary['A200']).fade(.3) } 30%, ${ color(colors.secondary['A200']).fade(.4) } 90%)`
   },
   widgetTitle: {
@@ -103,7 +104,7 @@ class Dashboard extends React.Component {
 
           <div style={{ flex: 0, minWidth: 300 }}>
             <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 12 }}
+              raised color="primary" style={{ width: '100%', marginBottom: 4 }}
               target="_blank" href={ `${ API_URL }/forms/csv/alldata?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -111,12 +112,20 @@ class Dashboard extends React.Component {
               Download data
             </Button>
             <Button
-              raised color="primary" style={{ width: '100%' }}
+              raised color="primary" style={{ width: '100%', marginBottom: 4 }}
               target="_blank" href={ `${ API_URL }/forms/csv/questions?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
               &nbsp;&nbsp;
               Download questions
+            </Button>
+            <Button
+              raised color="primary" style={{ width: '100%' }}
+              target="_blank" href={ `${ API_URL }/forms/csv/specification?token=${ this.props.token }` }
+            >
+              <Icon>file_download</Icon>
+              &nbsp;&nbsp;
+              Download specification
             </Button>
           </div>
 
