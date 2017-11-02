@@ -140,7 +140,7 @@ class Dashboard extends React.Component {
                 { value: moment(form.ts, 'X').format('DD/MM/YYYY HH:mm') },
                 { value: form.email },
                 { value: <div className={ classes.badgeNumber }>{ `${ form.correctQuestionsAmount }/${ form.questions.length }` }</div> },
-                { value: <div className={ classes.badgeNumber }>{ form.totalCompletionTime ? `${ form.totalCompletionTime.toFixed(2) }s` : '-' }</div> },
+                { value: <div className={ classes.badgeNumber }>{ form.totalCompletionTime ? `${ (form.totalCompletionTime/1000).toFixed(2) }s` : '-' }</div> },
                 { value: <div className={ classes.badgeText }>{ form.triedMoravec ? form.triedMoravec : '-' }</div> }
               ]
             }

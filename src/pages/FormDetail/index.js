@@ -133,7 +133,7 @@ class FormDetail extends React.Component {
                 </div>
                 <div style={{ flex: 1 }}>
                   <p className={ classes.questionTime }>
-                    { `${ question.completionTime.toFixed(2) }s` }
+                    { `${ (question.completionTime/1000).toFixed(2) }s` }
                   </p>
                 </div>
               </div>
