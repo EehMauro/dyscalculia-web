@@ -104,7 +104,7 @@ class Dashboard extends React.Component {
 
           <div style={{ flex: 0, minWidth: 300 }}>
             <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 4 }}
+              raised color="primary" style={{ width: '100%', marginBottom: 4 }} disabled={ true }
               target="_blank" href={ `${ API_URL }/forms/csv/alldata?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -112,7 +112,7 @@ class Dashboard extends React.Component {
               Download data
             </Button>
             <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 4 }}
+              raised color="primary" style={{ width: '100%', marginBottom: 4 }} disabled={ true }
               target="_blank" href={ `${ API_URL }/forms/csv/questions?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -120,7 +120,7 @@ class Dashboard extends React.Component {
               Download questions
             </Button>
             <Button
-              raised color="primary" style={{ width: '100%' }}
+              raised color="primary" style={{ width: '100%' }} disabled={ true }
               target="_blank" href={ `${ API_URL }/forms/csv/specification?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -133,7 +133,7 @@ class Dashboard extends React.Component {
 
         <AdminPanelPage>
           <Typography type="title" align="center">
-            Listado deshabilitado temporalmente
+            Deshabilitado temporalmente
           </Typography>
         </AdminPanelPage>
 
