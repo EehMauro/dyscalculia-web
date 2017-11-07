@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { API_URL, colors } from '../../conventions';
 import { fetchForms, setPageTitle } from '../../actions';
-import { AdminPanelTablePage } from '../../components';
+import { AdminPanelTablePage, AdminPanelPage } from '../../components';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
@@ -70,7 +70,7 @@ class Dashboard extends React.Component {
 
   componentDidMount () {
     this.props.dispatch(setPageTitle('Dashboard'));
-    this.props.dispatch(fetchForms());
+    //this.props.dispatch(fetchForms());
   }
 
   render () {
@@ -131,7 +131,13 @@ class Dashboard extends React.Component {
 
         </div>
 
-        <AdminPanelTablePage
+        <AdminPanelPage>
+          <Typography type="title" align="center">
+            Listado deshabilitado temporalmente
+          </Typography>
+        </AdminPanelPage>
+
+        {/*<AdminPanelTablePage
           headers={[
             { title: 'Creation date' },
             { title: 'Email' },
@@ -154,7 +160,7 @@ class Dashboard extends React.Component {
               ]
             }
           )) : null }
-        />
+        />*/}
 
       </div>
     );
