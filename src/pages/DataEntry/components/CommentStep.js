@@ -4,8 +4,6 @@ import { RaisedButton } from '../../../components';
 
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Input from 'material-ui/Input';
-import { MenuItem } from 'material-ui/Menu';
 import { FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 

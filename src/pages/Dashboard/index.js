@@ -5,8 +5,8 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { API_URL, colors } from '../../conventions';
-import { fetchForms, setPageTitle } from '../../actions';
-import { AdminPanelTablePage, AdminPanelPage } from '../../components';
+import { fetchForms, fetchFormCount, setPageTitle } from '../../actions';
+import { AdminPanelTablePage } from '../../components';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
@@ -61,16 +61,44 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-  formsAmount: state.formList.forms ? state.formList.forms.length : '-',
+  formsAmount: state.formCount.count || '-',
   formList: state.formList,
   token: state.session.token
 });
 
 class Dashboard extends React.Component {
 
+  state = {
+    pages: [ null ],
+    currentPage: 0
+  }
+
   componentDidMount () {
     this.props.dispatch(setPageTitle('Dashboard'));
-    //this.props.dispatch(fetchForms());
+    this.props.dispatch(fetchFormCount());
+    this.props.dispatch(fetchForms());
+  }
+
+  componentWillReceiveProps (props) {
+    if (props.formList.lastKey !== this.props.formList.lastKey) {
+      let pages = this.state.pages;
+      pages[this.state.currentPage+1] = props.formList.lastKey
+      this.setState({ pages });
+    }
+  }
+
+  handleNextPage () {
+    let { pages, currentPage } = this.state;
+    this.setState({ currentPage: currentPage + 1 }, () => {
+      this.props.dispatch(fetchForms(pages[currentPage + 1]));
+    });
+  }
+
+  handlePrevPage () {
+    let { pages, currentPage } = this.state;
+    this.setState({ currentPage: currentPage - 1 }, () => {
+      this.props.dispatch(fetchForms(pages[currentPage - 1]));
+    });
   }
 
   render () {
@@ -104,7 +132,7 @@ class Dashboard extends React.Component {
 
           <div style={{ flex: 0, minWidth: 300 }}>
             <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 4 }} disabled={ true }
+              raised color="primary" style={{ width: '100%', marginBottom: 4 }}
               target="_blank" href={ `${ API_URL }/forms/csv/alldata?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -112,7 +140,7 @@ class Dashboard extends React.Component {
               Download data
             </Button>
             <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 4 }} disabled={ true }
+              raised color="primary" style={{ width: '100%', marginBottom: 4 }}
               target="_blank" href={ `${ API_URL }/forms/csv/questions?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -120,7 +148,7 @@ class Dashboard extends React.Component {
               Download questions
             </Button>
             <Button
-              raised color="primary" style={{ width: '100%' }} disabled={ true }
+              raised color="primary" style={{ width: '100%' }}
               target="_blank" href={ `${ API_URL }/forms/csv/specification?token=${ this.props.token }` }
             >
               <Icon>file_download</Icon>
@@ -131,13 +159,7 @@ class Dashboard extends React.Component {
 
         </div>
 
-        <AdminPanelPage>
-          <Typography type="title" align="center">
-            Deshabilitado temporalmente
-          </Typography>
-        </AdminPanelPage>
-
-        {/*<AdminPanelTablePage
+        <AdminPanelTablePage
           headers={[
             { title: 'Creation date' },
             { title: 'Email' },
@@ -148,7 +170,7 @@ class Dashboard extends React.Component {
           buttons={[
             { icon: 'info', action: id => this.props.dispatch(push(`/admin/forms/${ id }`)) }
           ]}
-          items={ forms ? forms.sort((a, b) => b.ts - a.ts).map(form => (
+          items={ forms ? forms.map(form => (
             {
               id: form.email,
               fields: [
@@ -160,7 +182,28 @@ class Dashboard extends React.Component {
               ]
             }
           )) : null }
-        />*/}
+        />
+
+        <div>
+
+          <Button raised
+            color="primary"
+            onClick={ this.handlePrevPage.bind(this) }
+            disabled={ this.state.currentPage === 0 }
+          >
+            <Icon>chevron_left</Icon> Anterior 
+          </Button>
+
+          <Button raised
+            color="primary"
+            onClick={ this.handleNextPage.bind(this) }
+            disabled={ !this.state.pages[this.state.currentPage+1] }
+            style={{ float: 'right' }}
+          >
+            Siguiente <Icon>chevron_right</Icon>
+          </Button>
+
+        </div>
 
       </div>
     );

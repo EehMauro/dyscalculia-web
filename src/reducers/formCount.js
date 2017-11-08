@@ -2,39 +2,35 @@
 const initialState = {
   isFetching: false,
   didInvalidate: false,
-  forms: null,
-  lastKey: null
+  count: null
 };
 
 export default function (state = initialState, action = {}) {
 
   switch (action.type) {
 
-    case 'FORM_LIST_SUCCESS':
+    case 'FORM_COUNT_SUCCESS':
       return {
         ...state,
         isFetching: false,
         didInvalidate: false,
-        forms: action.forms,
-        lastKey: action.lastKey
+        count: action.count
       };
 
-    case 'FORM_LIST_FETCHING':
+    case 'FORM_COUNT_FETCHING':
       return {
         ...state,
         isFetching: true,
         didInvalidate: false,
-        forms: null,
-        lastKey: null
+        count: null
       };
 
-    case 'FORM_LIST_ERROR':
+    case 'FORM_COUNT_ERROR':
       return {
         ...state,
         isFetching: false,
         didInvalidate: true,
-        forms: null,
-        lastKey: null
+        count: null
       };
 
     default:

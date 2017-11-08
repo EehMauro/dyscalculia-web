@@ -6,6 +6,7 @@ import questions from './questions';
 import dataEntry from './dataEntry';
 import formList from './formList';
 import formDetail from './formDetail';
+import formCount from './formCount';
 
 export default combineReducers({
   session,
@@ -14,5 +15,6 @@ export default combineReducers({
   dataEntry,
   formList,
   formDetail,
+  formCount,
   routing: routerReducer
 });
