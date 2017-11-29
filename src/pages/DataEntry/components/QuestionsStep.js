@@ -59,7 +59,8 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 24,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   imageContainer: {
     padding: 24,
@@ -139,11 +140,11 @@ class QuestionsStep extends React.Component {
 
           { question.image ?
             <div style={{ flex: 0, marginRight: 24, marginBottom: 12, textAlign: 'center' }}>
-              <img src={ question.image } alt={ question.label } width={ 350 } /> 
+              <img src={ question.image } alt={ question.label } style={{ width: 350, maxWidth: '100vw' }} /> 
             </div>
           : null }
 
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, flexBasis: 350 }}>
             <FormControl component="fieldset">
               <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
                 { this.renderMultipleChoiceOptions(question.options) }
@@ -168,13 +169,13 @@ class QuestionsStep extends React.Component {
         <div className={ this.props.classes.imageContainer }>
 
           <div style={{ padding: 12, textAlign: 'center', marginBottom: 24 }}>
-            <img src={ question.image } alt="question" /> 
+            <img src={ question.image } alt="question" style={{ maxWidth: '100vw' }} /> 
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             { question.options.map((image, index) => (
               <div key={ index } style={{ flex: 0, padding: 12, textAlign: 'center' }}>
-                <img src={ image } alt={ `answer-${ index }` } />
+                <img src={ image } alt={ `answer-${ index }` } style={{ maxWidth: '100vw' }} />
                 <br />
                 <Radio
                   name="image-question"
