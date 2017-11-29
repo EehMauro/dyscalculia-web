@@ -130,7 +130,7 @@ class Dashboard extends React.Component {
             </div>
           </Paper>
 
-          <div style={{ flex: 0, minWidth: 300 }}>
+          <div style={{ flex: 0, minWidth: 604 }}>
             <Button
               raised color="primary" style={{ width: '100%', marginBottom: 4 }}
               target="_blank" href={ `${ API_URL }/forms/csv/alldata?token=${ this.props.token }` }
@@ -147,14 +147,28 @@ class Dashboard extends React.Component {
               &nbsp;&nbsp;
               Download questions
             </Button>
-            <Button
-              raised color="primary" style={{ width: '100%' }}
-              target="_blank" href={ `${ API_URL }/forms/csv/specification?token=${ this.props.token }` }
-            >
-              <Icon>file_download</Icon>
-              &nbsp;&nbsp;
-              Download specification
-            </Button>
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: 1, flexBasis: 300, marginRight: 2 }}>
+                <Button
+                  raised color="primary" style={{ width: '100%' }}
+                  target="_blank" href={ `${ API_URL }/forms/csv/questions-specification?token=${ this.props.token }` }
+                >
+                  <Icon>file_download</Icon>
+                  &nbsp;&nbsp;
+                  Questions specification
+                </Button>
+              </div>
+              <div style={{ flex: 1, flexBasis: 300, marginLeft: 2 }}>
+                <Button
+                  raised color="primary" style={{ width: '100%' }}
+                  target="_blank" href={ `${ API_URL }/forms/csv/data-specification?token=${ this.props.token }` }
+                >
+                  <Icon>file_download</Icon>
+                  &nbsp;&nbsp;
+                  Data specification
+                </Button>
+              </div>
+            </div>
           </div>
 
         </div>
