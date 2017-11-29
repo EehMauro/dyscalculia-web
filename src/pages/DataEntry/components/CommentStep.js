@@ -53,7 +53,7 @@ class CommentStep extends React.Component {
     if (triedMoravec !== '') {
       this.props.onSubmit({
         comment: comment !== '' ? comment : null,
-        triedMoravec: triedMoravec
+        triedMoravec: triedMoravec === 'Si'
       });
     }
   }

@@ -8,7 +8,6 @@ import { colors } from '../../../conventions';
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControl, FormControlLabel } from 'material-ui/Form';
-import Slider from 'rc-slider';
 
 const styles = theme => ({
   container: {
@@ -62,7 +61,7 @@ const styles = theme => ({
     paddingLeft: 24,
     flexWrap: 'wrap'
   },
-  visuospatialContainer: {
+  imageContainer: {
     padding: 24,
     margin: '12px 0 0'
   },
@@ -102,11 +101,6 @@ class QuestionsStep extends React.Component {
     this.setState({ answer });
   }
 
-  isAnswerCorrect (question, answer) {
-    if (question.type !== 'scale-question') return question.correctAnswer === answer;
-    return answer >= question.correctAnswer - 5 && answer <= question.correctAnswer + 5;
-  }
-
   handleNext (event) {
     event.preventDefault();
 
@@ -119,7 +113,7 @@ class QuestionsStep extends React.Component {
     this.props.onSubmit({
       id: question.id,
       answer: answer,
-      isCorrect: this.isAnswerCorrect(question, answer),
+      isCorrect: question.correctAnswer === answer,
       completionTime: currentTime - lastTime
     });
   }
@@ -145,7 +139,7 @@ class QuestionsStep extends React.Component {
 
           { question.image ?
             <div style={{ flex: 0, marginRight: 24, marginBottom: 12, textAlign: 'center' }}>
-              <img src={ question.image } alt={ question.label } width={ 280 } /> 
+              <img src={ question.image } alt={ question.label } width={ 350 } /> 
             </div>
           : null }
 
@@ -163,58 +157,7 @@ class QuestionsStep extends React.Component {
     );
   }
 
-  renderScale (question) {
-    return (
-      <div style={{ flex: 1 }}>
-
-        <Typography type="title" className={ this.props.classes.question }>
-          { question.label }
-        </Typography>
-
-        <div style={{ flex: 0, padding: '48px 24px 64px' }}>
-          <Slider
-            step={ 1 } min={ 0 } max={ 100 }
-            defaultValue={ 50 }
-            marks={{
-              0: {
-                style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
-                label: '0'
-              },
-              25: '',
-              50: '',
-              75: '',
-              100: {
-                style: { fontSize: 16, color: colors.text[700], marginTop: 10, fontWeight: 600 },
-                label: '100'
-              },
-            }}
-            onAfterChange={ value => this.handleAnswer(null, value) }
-            trackStyle={{
-              backgroundColor: colors.secondary['A200']
-            }}
-            handleStyle={{
-              borderColor: colors.secondary['A200'],
-              backgroundColor: '#FFF',
-              boxShadow: 'none',
-              width: 30, height: 30,
-              marginLeft: -15, marginTop: -13,
-              borderWidth: 4
-            }}
-            railStyle={{
-              backgroundColor: colors.secondary['A200']
-            }}
-            dotStyle={{
-              borderColor: colors.secondary['A200'],
-              backgroundColor: colors.secondary['A200']
-            }}
-          />
-        </div>
-
-      </div>
-    );
-  }
-
-  renderVisuospatial (question) {
+  renderImageMultipleChoice (question) {
     return (
       <div style={{ flex: 1 }}>
       
@@ -222,7 +165,7 @@ class QuestionsStep extends React.Component {
           { question.label }
         </Typography>
 
-        <div className={ this.props.classes.visuospatialContainer }>
+        <div className={ this.props.classes.imageContainer }>
 
           <div style={{ padding: 12, textAlign: 'center', marginBottom: 24 }}>
             <img src={ question.image } alt="question" /> 
@@ -231,13 +174,13 @@ class QuestionsStep extends React.Component {
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             { question.options.map((image, index) => (
               <div key={ index } style={{ flex: 0, padding: 12, textAlign: 'center' }}>
-                <img src={ image } alt={ `answer-${ index + 1 }` } />
+                <img src={ image } alt={ `answer-${ index }` } />
                 <br />
                 <Radio
-                  name="visuospatial-question"
-                  checked={ this.state.answer === index + 1 }
+                  name="image-question"
+                  checked={ this.state.answer === index }
                   onChange={ e => this.handleAnswer(null, parseInt(e.target.value, 10)) }
-                  value={ index + 1 }
+                  value={ index }
                 />
               </div>
             )) }
@@ -249,51 +192,10 @@ class QuestionsStep extends React.Component {
     );
   }
 
-  renderMirror (question) {
-    return (
-      <div style={{ flex: 1 }}>
-
-        <div style={{ flex: 0, display: 'flex', marginBottom: 24, justifyContent: 'center' }}>
-
-          <div style={{ flex: 0, marginRight: 24, textAlign: 'center' }}>
-            <img src={ question.imageOriginal } alt="original" width={ 140 } /> 
-          </div>
-
-          <div style={{ flex: 0, marginLeft: 24, textAlign: 'center' }}>
-            <img src={ question.imageMirrored } alt="mirrored" width={ 140 } /> 
-          </div>
-
-        </div>
-
-        <Typography type="title" className={ this.props.classes.question }>
-          { question.label }
-        </Typography>
-
-        <div style={{ flex: 1, padding: '0 64px' }}>
-          <FormControl component="fieldset">
-            <RadioGroup name="question" value={ this.state.answer } onChange={ this.handleAnswer.bind(this) }>
-              <FormControlLabel
-                label="Si" value="Si" control={ <Radio /> }
-                classes={{ label: this.props.classes.optionLabel }}
-              />
-              <FormControlLabel
-                label="No" value="No" control={ <Radio /> }
-                classes={{ label: this.props.classes.optionLabel }}
-              />
-            </RadioGroup>
-          </FormControl>
-        </div>
-
-      </div>
-    );
-  }
-
   renderQuestion (question) {
     switch (question.type) {
       case 'multiple-choice-question': return this.renderMultipleChoice(question);
-      case 'scale-question': return this.renderScale(question);
-      case 'visuospatial-question': return this.renderVisuospatial(question);
-      case 'mirror-question': return this.renderMirror(question);
+      case 'image-multiple-choice-question': return this.renderImageMultipleChoice(question);
       default: return null;
     }
   }
@@ -323,7 +225,7 @@ class QuestionsStep extends React.Component {
           <div className={ classes.button }>
             <RaisedButton
               type="submit"
-              label={ answer ? 'Siguiente' : 'Omitir' }
+              label={ answer !== null ? 'Siguiente' : 'Omitir' }
               style={{ minWidth: '160px' }}
               disabled={ isFetching }
             />

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { SinglePage } from '../../components';
-import { WelcomeStep, ProfileStep, QuestionsStep, CommentStep, EndStep } from './components';
+import { WelcomeStep, ProfileStep, QuestionsStep, CommentStep, EndStep, ResultsStep } from './components';
 import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import Dialog, { DialogActions, DialogTitle } from 'material-ui/Dialog';
@@ -22,14 +22,16 @@ class DataEntry extends React.Component {
     'profile',
     'questions',
     'comment',
-    'end'
+    'end',
+    'results'
   ]
 
   state = {
     step: 0,
     score: 0,
     answeredQuestions: 0,
-    error: null
+    error: null,
+    answers: []
   }
 
   componentDidMount () {
@@ -66,7 +68,8 @@ class DataEntry extends React.Component {
   handleQuestion (question) {
     this.setState({
       score: this.state.score + (question.isCorrect ? 1 : 0),
-      answeredQuestions: this.state.answeredQuestions + 1
+      answeredQuestions: this.state.answeredQuestions + 1,
+      answers: [ ...this.state.answers, question ]
     }, () => {
       this.props.dispatch(updateForm({ question }));
     });
@@ -76,9 +79,17 @@ class DataEntry extends React.Component {
     this.props.dispatch(updateForm({ comment, triedMoravec, finished: true }));
   }
 
+  handleShowResults () {
+    this.setState({ step: this.steps.indexOf('results') });
+  }
+
+  handleGoBack () {
+    this.setState({ step: this.steps.indexOf('end') });
+  }
+
   renderStep () {
 
-    let { step, score, answeredQuestions } = this.state;
+    let { step, score, answeredQuestions, answers } = this.state;
     let { questions, dataEntry: { isFetching, success } } = this.props;
     
     switch (this.steps[step]) {
@@ -96,7 +107,10 @@ class DataEntry extends React.Component {
         return <CommentStep onSubmit={ this.handleComment.bind(this) } isFetching={ isFetching } />;
 
       case 'end':
-        return <EndStep score={ score } questionsCount={ answeredQuestions } />;
+        return <EndStep onShowResults={ this.handleShowResults.bind(this) } score={ score } questionsCount={ answeredQuestions } />;
+
+      case 'results':
+        return <ResultsStep score={ score } questionsCount={ answeredQuestions } answers={ answers } questions={ questions } />;
       
       default: return null;
     

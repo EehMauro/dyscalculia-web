@@ -111,7 +111,7 @@ class FormDetail extends React.Component {
 
           <div>
             <p className={ classes.label }>Tried Moravec</p>
-            <p className={ classes.value }>{ form.triedMoravec }</p>
+            <p className={ classes.value }>{ form.triedMoravec ? 'Yes' : 'No' }</p>
           </div>
         
         </AdminPanelPage>

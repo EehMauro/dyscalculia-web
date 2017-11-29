@@ -7,8 +7,10 @@ import { colors } from '../conventions';
 const styles = theme => ({
   root: {
     paddingTop: 64,
+    paddingBottom: 64,
     '@media only screen and (max-width : 960px)': {
-      paddingTop: 0
+      paddingTop: 0,
+      paddingBottom: 0
     }
   },
   container: {

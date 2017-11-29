@@ -1,6 +1,7 @@
 import React from 'react';
 import color from 'color';
 import { withStyles } from 'material-ui/styles';
+import { RaisedButton } from '../../../components';
 import { colors } from '../../../conventions';
 
 import Button from 'material-ui/Button';
@@ -64,6 +65,10 @@ const styles = theme => ({
     marginRight: 12,
     backgroundColor: '#159588',
     '&:hover': { backgroundColor: color('#159588').lighten(.25).hex() }
+  },
+  button: {
+    marginTop: 24,
+    textAlign: 'center'
   }
 });
 
@@ -135,6 +140,10 @@ class EndStep extends React.Component {
 
           </div>
 
+        </div>
+
+        <div className={ classes.button }>
+          <RaisedButton label="Ver mis resultados" style={{ minWidth: '160px' }} onClick={ this.props.onShowResults } />
         </div>
 
       </div>
