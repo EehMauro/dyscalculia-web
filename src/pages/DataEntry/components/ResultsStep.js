@@ -194,7 +194,7 @@ class ResultsStep extends React.Component {
 
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
-          <div style={{ flex: 1, paddingLeft: 32, paddingRight: 32 }}>
+          <div style={{ flex: 1, paddingLeft: 32, paddingRight: 32, flexBasis: 250 }}>
 
             <Typography type="title" className={ classes.scoreText }>
               Tu puntaje
@@ -208,7 +208,7 @@ class ResultsStep extends React.Component {
 
           </div>
 
-          <div style={{ flex: 1, paddingLeft: 32, paddingRight: 32, marginBottom: 24 }}>
+          <div style={{ flex: 1, paddingLeft: 32, paddingRight: 32, marginBottom: 24, flexBasis: 250 }}>
 
             <Typography type="title" className={ classes.shareText }>
               Compartí
