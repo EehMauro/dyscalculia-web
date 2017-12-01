@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build; cp .htaccess build/.htaccess",
+    "build": "react-scripts build",
     "start-prod": "pushstate-server ./ 8080"
   }
 }
