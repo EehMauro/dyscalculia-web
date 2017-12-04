@@ -120,6 +120,17 @@ const styles = theme => ({
 
 class ResultsStep extends React.Component {
 
+  renderSkippedAnswer (answer) {
+    if (answer.answer !== null) return null;
+    let { classes } = this.props;
+    return (
+      <div style={{ marginBottom: 8, display: 'flex' }}>
+        <Icon className={ `${ classes.answerIcon } ${ classes.incorrectAnswerIcon }` }>cancel</Icon>  
+        <div className={ `${ classes.answer } ${ classes.incorrectAnswer }` }>Omitida</div>
+      </div>
+    );
+  }
+
   renderAnswers (question, answer) {
     let { classes } = this.props;
     if (question.type === 'multiple-choice-question') {
@@ -173,6 +184,7 @@ class ResultsStep extends React.Component {
           <Typography type="title" className={ classes.question }>
             { `${ index + 1 }. ${ question.label }` }
           </Typography>
+          { this.renderSkippedAnswer(answer) }
           { this.renderAnswers(question, answer) }
         </div>
       );
