@@ -57,7 +57,7 @@ class WelcomeStep extends React.Component {
         </Typography>
 
         <Typography type="body1" className={ classes.paragraph }>
-          Son 20 preguntas multiple choice que solamente te van a llevar algunos minutos.
+          Son 23 preguntas multiple choice que solamente te van a llevar algunos minutos.
         </Typography>
 
         <Typography type="body1" className={ classes.paragraph }>

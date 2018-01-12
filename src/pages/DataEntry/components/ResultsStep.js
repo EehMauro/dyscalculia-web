@@ -230,21 +230,21 @@ class ResultsStep extends React.Component {
 
               <Button
                 fab color="inherit" classes={{ root: classes.facebook }} target="_blank"
-                href="https://www.facebook.com/sharer/sharer.php?u=http://queso.elgatoylacaja.com.ar"
+                href="https://www.facebook.com/sharer/sharer.php?u=https://queso.eglcinvestigacion.com"
               >
                 <i className={`ion-social-facebook ${ classes.icon }`} />
               </Button>
 
               <Button
                 fab color="inherit" classes={{ root: classes.twitter }} target="_blank"
-                href="http://twitter.com/share?text=Hagamos%20un%20experimento&url=http://queso.elgatoylacaja.com.ar"
+                href="http://twitter.com/share?text=Hagamos%20un%20experimento&url=https://queso.eglcinvestigacion.com"
               >
                 <i className={`ion-social-twitter ${ classes.icon }`} />
               </Button>
 
               <Button
                 fab color="inherit" classes={{ root: classes.whatsapp }}
-                href="whatsapp://send?text=Hagamos%20un%20experimento%0Ahttp://queso.elgatoylacaja.com.ar"
+                href="whatsapp://send?text=Hagamos%20un%20experimento%0Ahttps://queso.eglcinvestigacion.com"
               >
                 <i className={`ion-social-whatsapp ${ classes.icon }`} />
               </Button>

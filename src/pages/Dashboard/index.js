@@ -4,7 +4,7 @@ import moment from 'moment';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import { API_URL, colors } from '../../conventions';
+import { colors } from '../../conventions';
 import { fetchForms, fetchFormCount, setPageTitle } from '../../actions';
 import { AdminPanelTablePage } from '../../components';
 
@@ -17,8 +17,7 @@ const styles = theme => ({
   widget: {
     borderRadius: 0,
     background: '#FFF',
-    flex: 1,
-    marginRight: 24
+    flex: 1
   },
   widgetGradient: {
     display: 'flex',
@@ -129,47 +128,6 @@ class Dashboard extends React.Component {
               </div>
             </div>
           </Paper>
-
-          <div style={{ flex: 0, minWidth: 604 }}>
-            <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 4 }} disabled={ true }
-              target="_blank" href={ `${ API_URL }/forms/csv/alldata?token=${ this.props.token }` }
-            >
-              <Icon>file_download</Icon>
-              &nbsp;&nbsp;
-              Download data
-            </Button>
-            <Button
-              raised color="primary" style={{ width: '100%', marginBottom: 4 }} disabled={ true }
-              target="_blank" href={ `${ API_URL }/forms/csv/questions?token=${ this.props.token }` }
-            >
-              <Icon>file_download</Icon>
-              &nbsp;&nbsp;
-              Download questions
-            </Button>
-            <div style={{ display: 'flex' }}>
-              <div style={{ flex: 1, flexBasis: 300, marginRight: 2 }}>
-                <Button
-                  raised color="primary" style={{ width: '100%' }}
-                  target="_blank" href={ `${ API_URL }/forms/csv/questions-specification?token=${ this.props.token }` }
-                >
-                  <Icon>file_download</Icon>
-                  &nbsp;&nbsp;
-                  Questions specification
-                </Button>
-              </div>
-              <div style={{ flex: 1, flexBasis: 300, marginLeft: 2 }}>
-                <Button
-                  raised color="primary" style={{ width: '100%' }}
-                  target="_blank" href={ `${ API_URL }/forms/csv/data-specification?token=${ this.props.token }` }
-                >
-                  <Icon>file_download</Icon>
-                  &nbsp;&nbsp;
-                  Data specification
-                </Button>
-              </div>
-            </div>
-          </div>
 
         </div>
 
