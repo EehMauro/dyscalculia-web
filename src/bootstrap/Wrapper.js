@@ -22,7 +22,7 @@ class Wrapper extends React.Component {
             },
             { 
               rel: 'stylesheet',
-              href: 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
+              href: 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
             }
           ]}
           style={[
