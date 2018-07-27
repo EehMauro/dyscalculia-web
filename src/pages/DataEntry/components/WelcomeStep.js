@@ -53,11 +53,11 @@ class WelcomeStep extends React.Component {
         </Typography>
 
         <Typography type="body1" className={ classes.paragraph }>
-          Hay muchas personas con gran dificultad en matemática, en particular en aritmética. Tenemos algunas hipótesis de cómo ayudarlas a mejorar pero para eso primero necesitamos encontrarlas. Esperamos que el test que vas a hacer a continuación nos sirva para determinar cuán queso sos (o no) en cálculo mental.
+          Hace un tiempo, lanzamos un experimento relacionado con distintas áreas de la matemática que superó nuestras expectativas. Fue tanta gente la que participó que comenzamos a encontrarnos con ideas que no se nos habían ocurrido antes. Por eso, hoy, tenemos un proyecto mucho más ambicioso: Barrios mentales. Este test es parte de ese proyecto.
         </Typography>
 
         <Typography type="body1" className={ classes.paragraph }>
-          Son 23 preguntas multiple choice que solamente te van a llevar algunos minutos.
+          Son 23 preguntas de opción múltiple que solamente te van a llevar algunos minutos responder.
         </Typography>
 
         <Typography type="body1" className={ classes.paragraph }>
